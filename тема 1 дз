@@ -1,0 +1,15 @@
+import requests
+# Пример GET запроса                                                                      
+response = requests.get('http://your-django-api-url.com/endpoint')
+print(response.json())
+# Пример POST запроса с заголовками и телом запроса           
+headers = {
+    'Content-Type': 'application/json',                                           
+'Authorization': 'Bearer your-token'
+}                                                                                                                    
+data = {
+    'key1': 'value1',                                                                                          
+'key2': 'value2'
+}                                                                                                                
+response = requests.post('http://your-django-api-url.com/endpoint', headers=headers, json=data)
+print(response.json())
