@@ -1,0 +1,76 @@
+# Идея учебного проекта: онлайн-магазин книг
+
+# Проектирование базы данных:
+
+# Таблица "Книги"
+CREATE TABLE Books (
+    book_id INT PRIMARY KEY,
+    title VARCHAR(100),
+    author VARCHAR(100),
+    genre VARCHAR(50),
+    price DECIMAL(10, 2)
+);
+
+# Таблица "Пользователи"
+CREATE TABLE Users (
+    user_id INT PRIMARY KEY,
+    username VARCHAR(50),
+    email VARCHAR(100),
+    password VARCHAR(100)
+);
+
+# Таблица "Заказы"
+CREATE TABLE Orders (
+    order_id INT PRIMARY KEY,
+    user_id INT,
+    book_id INT,
+    quantity INT,
+    total_price DECIMAL(10, 2),
+    order_date DATE,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id),
+    FOREIGN KEY (book_id) REFERENCES Books(book_id)
+);
+
+# Таблица "Отзывы"
+CREATE TABLE Reviews (
+    review_id INT PRIMARY KEY,
+    user_id INT,
+    book_id INT,
+    rating INT,
+    comment TEXT,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id),
+    FOREIGN KEY (book_id) REFERENCES Books(book_id)
+);
+
+# Таблица "Корзина"
+CREATE TABLE Cart (
+    cart_id INT PRIMARY KEY,
+    user_id INT,
+    book_id INT,
+    quantity INT,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id),
+    FOREIGN KEY (book_id) REFERENCES Books(book_id)
+);
+
+# Таблица "Авторы"
+CREATE TABLE Authors (
+    author_id INT PRIMARY KEY,
+    author_name VARCHAR(100)
+);
+
+# Таблица "Жанры"
+CREATE TABLE Genres (
+    genre_id INT PRIMARY KEY,
+    genre_name VARCHAR(50)
+);
+
+# Таблица "Издательства"
+CREATE TABLE Publishers (
+    publisher_id INT PRIMARY KEY,
+    publisher_name VARCHAR(100)
+);
+
+# Связь между таблицами:
+# - Каждая книга может иметь одного автора, поэтому в таблице "Книги" есть столбец "author_id", который ссылается на таблицу "Авторы".
+# - Каждая книга может относиться к одному жанру, поэтому в таблице "Книги" есть столбец "genre_id", который ссылается на таблицу "Жанры".
+# - Каждая книга может быть издана одним издательством, поэтому в таблице "Книги" есть столбец "publisher_id", который ссылается на таблицу "Издательства".
